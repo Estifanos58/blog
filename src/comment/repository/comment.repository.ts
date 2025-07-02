@@ -5,4 +5,8 @@ export abstract class CommentRepository {
     postId: string;
     content: string;
   }): Promise<any>;
+
+   abstract updateById(commentId: string, userId: string, content: string): Promise<any | null>;
+
+   abstract deleteById(commentId: string, userId: string): Promise<boolean>;
 }

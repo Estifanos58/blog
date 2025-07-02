@@ -8,8 +8,10 @@ import { CommentRepository } from './repository/comment.repository';
 import { CommentRepositoryImpl } from './repository/comment.repository.impl';
 import { AuthModule } from 'src/auth/auth.module';
 import { PostModule } from 'src/post/post.module';
+import { UpdateCommentHandler } from './handlers/update-comment.handler';
+import { DeleteCommentHandler } from './handlers/delete-comment.handler';
 
-const CommentHandlers = [CreateCommentHandler];
+const CommentHandlers = [CreateCommentHandler, UpdateCommentHandler, DeleteCommentHandler];
 
 @Module({
   imports: [CqrsModule, AuthModule, PostModule],
