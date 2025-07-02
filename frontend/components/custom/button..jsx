@@ -1,10 +1,10 @@
 import React from "react";
 
-const FancyButton = ({ title}) => {
+const FancyButton = ({ title, type, onClick, noRelod}) => {
   return (
-    <button>
+    <button type={type} onClick={onClick}>
       <a
-        href="/post"
+        href={!noRelod && "/post"}
         className="group inline-block float-right bg-transparent border-2 border-black text-white font-bold tracking-wider m-0 outline-none overflow-visible py-[1.25em] px-8 relative text-center no-underline transition-all duration-300 ease-in-out select-none text-[13px] hover:bg-black hover:text-white"
       >
         <span className="absolute h-0.5 w-[1.5625rem] top-[-2px] left-[0.625rem] bg-[#e8e8e8] transition-all duration-500 ease-out group-hover:left-[-2px] group-hover:w-0"></span>

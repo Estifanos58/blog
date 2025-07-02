@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import customButton from '@/components/custom/button/button.'
-import FancyButton from '@/components/custom/button/button.'
+import customButton from '@/components/custom/button.'
+import FancyButton from '@/components/custom/button.'
 
 function CreatePost() {
    return (

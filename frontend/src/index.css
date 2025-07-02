@@ -117,4 +117,14 @@
   body {
     @apply bg-background text-foreground;
   }
+
+}
+
+@layer components {
+  .label {
+    @apply font-bold text-[18px] text-black uppercase !important;
+  }
+  .input {
+    @apply border-[3px] border-black px-5 py-7 text-[18px] text-black font-semibold rounded-full mt-3 placeholder:text-black/30;
+  }
 }
