@@ -1,0 +1,45 @@
+What we are building a BLOG app
+
+having a user
+DATABASE Schema
+==============
+// USER
+id, first_name, last_name, email, password
+
+// POST
+id, userId, content, comments[commentId], createdAt, updatedAt
+
+//COMMENT
+id, userId, content, createdAt, updatedAt
+
+CRUD Operations
+==============
+
+posts
+====
+
+getallposts
+@GET() / posts
+fechAllPosts
+
+getUnique post
+@GET(':id') /posts/:id
+findOne('id')
+
+update post
+@Patch('id') /posts/:id
+update('id')
+
+delete post
+@DELETE('id') /posts:id
+delete('id')
+
+comments
+=======
+
+updateApost
+@Patch('id') / comments/:id
+update('id')
+
+@Delete('id') / comments/:id
+delete('id')
