@@ -24,6 +24,7 @@ const QueryHandlers = [GetAllPostsHandler];
             provide: PostRepository,
             useClass: PostRepositoryImpl
         }
-    ]
+    ],
+    exports: [PostRepository]
 })
 export class PostModule {}
