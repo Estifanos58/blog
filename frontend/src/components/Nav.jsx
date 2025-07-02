@@ -20,13 +20,13 @@ const Navbar = () => {
       </h1>
 
       {/* Navigation */}
-        <div className="border-y-2 flex mx-5 justify-center gap-6 items-center px-4 md:px-16">
+        <div className="border-y-2 flex mx-5 justify-center md:gap-6 items-center px-4 md:px-16">
           {/*  */}
-          <div className="flex px-7 divide-x divide-black text-sm">
+          <div className="flex px-4 lg:px-7 divide-x divide-black text-sm">
             {["Home", "About", "My Blog", "Contact"].map((item, idx) => (
               <div
                 key={idx}
-                className="px-16 py-4 text-center hover:text-purple-600 transition-colors cursor-pointer"
+                className="px-5 lg:px-16 py-4 text-center hover:text-purple-600 transition-colors cursor-pointer"
               >
                 {item}
               </div>

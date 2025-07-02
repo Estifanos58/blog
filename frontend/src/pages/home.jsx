@@ -1,8 +1,12 @@
 import React from 'react'
+import CreatePost from '../components/CreatePost'
 
 function Home() {
   return (
-    <div>Home</div>
+    <div>
+      <CreatePost/>
+      Home
+      </div>
   )
 }
 
