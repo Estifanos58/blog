@@ -16,6 +16,9 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { useNavigate } from "react-router-dom";
+import useStore from "../store/store";
+import axios from "axios";
 
 const signUpSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
@@ -32,6 +35,8 @@ const signInSchema = z.object({
 export const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [pending, setPending] = useState(false);
+  const { setUser } = useStore();
+  const navigate = useNavigate();
 
   const form = useForm({
     resolver: zodResolver(isLogin ? signInSchema : signUpSchema),
@@ -43,11 +48,30 @@ export const Auth = () => {
     },
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     setPending(true);
-    console.log(isLogin ? "Logging in..." : "Signing up...", data);
-
-  }
+    try {
+      console.log(isLogin ? "Logging in..." : "Signing up...", data);
+      const url = `${import.meta.env.VITE_BACKEND_URL}/auth/${
+        isLogin ? "signin" : "signup"
+      }`;
+      const response = await axios.post(url, data, { withCredentials: true });
+      if(response.status === 200 | 201) {
+        console.log("Success:", response.data);
+        setUser(response.data.user);
+        setPending(false);
+        navigate("/");
+      }
+      else{
+        setPending(false);
+        alert(response.data.message);
+      }
+      console.log("Response: ", response);
+    } catch (error) {
+      setPending(false);
+      alert("An error Occurred. Please try again.");
+    }
+  };
   return (
     <div className="min-h-screen bg-gray-100 flex items-center">
       <Card className="max-w-md flex-1 mx-auto mt-10">
