@@ -7,6 +7,7 @@ import {
   Param,
   Put,
   Delete,
+  ValidationPipe,
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { CreatePostDto } from '../dto/create-post.dto';
@@ -17,6 +18,7 @@ import { UpdatePostDto } from '../dto/update-post.dto';
 import { UpdatePostCommand } from '../commands/update-post.command';
 import { DeletePostCommand } from '../commands/delete-post.command';
 
+
 @Controller('posts')
 export class PostController {
   constructor(
@@ -26,7 +28,7 @@ export class PostController {
 
   @Post()
   async create(@Body() dto: CreatePostDto, @Req() req: Request) {
-    return this.commandBus.execute(new CreatePostCommand(req, dto.content));
+    return this.commandBus.execute(new CreatePostCommand(req, dto.content, dto.title, dto.image, dto.description));
   }
 
   @Get()
@@ -40,7 +42,7 @@ export class PostController {
     @Body() dto: UpdatePostDto,
     @Req() req: Request,
   ) {
-    return this.commandBus.execute(new UpdatePostCommand(req, id, dto.content));
+    return this.commandBus.execute(new UpdatePostCommand(req, id , dto.content! , dto.title!, dto.image!, dto.description!));
   }
 
   @Delete(':id')

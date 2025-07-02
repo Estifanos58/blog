@@ -171,7 +171,6 @@ export const Auth = () => {
                   ? "Don't have an account?"
                   : "Already have an account?"}{" "}
                 <button
-                  type="button"
                   onClick={() => setIsLogin(!isLogin)}
                   className="text-primary underline underline-offset-4"
                 >

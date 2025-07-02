@@ -14,10 +14,10 @@ export class UpdatePostHandler implements ICommandHandler<UpdatePostCommand> {
   ) {}
 
   async execute(command: UpdatePostCommand) {
-    const { req, postId, content } = command;
+    const { req, postId, content, title, image , description} = command;
     const user = await getUserFromRequest(req, this.userRepo);
 
-    const updated = await this.postRepo.updateById(postId, user.id, content);
+    const updated = await this.postRepo.updateById(postId, user.id, content ,title, image , description);
     if (!updated) throw new ForbiddenException('Not authorized or post not found');
 
     return updated;

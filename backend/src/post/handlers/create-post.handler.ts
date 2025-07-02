@@ -14,13 +14,16 @@ export class CreatePostHandler implements ICommandHandler<CreatePostCommand> {
   ) {}
 
   async execute(command: CreatePostCommand): Promise<any> {
-    const { req, content } = command;
+    const { req, content, title, image , description } = command;
 
     const user = await getUserFromRequest(req, this.userRepo);
 
     return this.postRepo.create({
       userId: user.id,
       content,
+      title,
+      image,
+      description,
     });
   }
 }

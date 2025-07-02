@@ -6,11 +6,7 @@ import { PostRepository } from './post.repository';
 export class PostRepositoryImpl implements PostRepository {
   constructor(private readonly prisma: DatabaseService) {}
 
-  //   async findByEmail(email: string): Promise<any | null> {
-  //     return this.prisma.user.findUnique({ where: { email } });
-  //   }
-
-  async create(post: { content: string; userId: string }): Promise<any> {
+  async create(post: { content: string; title:string; description:string; image:string; userId: string }): Promise<any> {
     return this.prisma.post.create({ data: post });
   }
 
@@ -33,13 +29,16 @@ export class PostRepositoryImpl implements PostRepository {
     postId: string,
     userId: string,
     content: string,
+    title: string,
+    description: string,
+    image: string
   ): Promise<any> {
     const post = await this.prisma.post.findUnique({ where: { id: postId } });
     if (!post || post.userId !== userId) return null;
 
     return this.prisma.post.update({
       where: { id: postId },
-      data: { content },
+      data: { content, title, description, image },
     });
   }
 
