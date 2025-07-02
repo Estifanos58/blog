@@ -24,5 +24,6 @@ const QueryHandlers = [GetUserByIdHandler];
       useClass: UserRepositoryImpl,
     },
   ],
+  exports:[UserRepository]
 })
 export class AuthModule {}
