@@ -6,14 +6,18 @@ import { DatabaseService } from 'src/database/database.service';
 import { PostRepository } from './repository/post.repository';
 import { PostRepositoryImpl } from './repository/post.repository.impl';
 import { AuthModule } from 'src/auth/auth.module';
+import { GetAllPostsHandler } from './handlers/get-all-posts.handler';
+import { UpdatePostHandler } from './handlers/update-post.handler';
 
-const CommandHandlers = [CreatePostHandler,]
+const CommandHandlers = [CreatePostHandler, UpdatePostHandler];
+const QueryHandlers = [GetAllPostsHandler]; 
 
 @Module({
     imports: [CqrsModule, AuthModule],
     controllers: [PostController],
     providers: [
         ...CommandHandlers,
+        ...QueryHandlers,
         DatabaseService,
         {
             provide: PostRepository,

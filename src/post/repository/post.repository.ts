@@ -5,4 +5,6 @@ export abstract class PostRepository {
     userId: string;
   }): Promise<any>;
   abstract findById(id: string): Promise<any | null>;
+   abstract findAll(): Promise<any[]>;
+    abstract updateById(postId: string, userId: string, content: string): Promise<any>;
 }
