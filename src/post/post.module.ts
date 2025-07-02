@@ -8,8 +8,9 @@ import { PostRepositoryImpl } from './repository/post.repository.impl';
 import { AuthModule } from 'src/auth/auth.module';
 import { GetAllPostsHandler } from './handlers/get-all-posts.handler';
 import { UpdatePostHandler } from './handlers/update-post.handler';
+import { DeletePostHandler } from './handlers/delete-post.handler';
 
-const CommandHandlers = [CreatePostHandler, UpdatePostHandler];
+const CommandHandlers = [CreatePostHandler, UpdatePostHandler, DeletePostHandler];
 const QueryHandlers = [GetAllPostsHandler]; 
 
 @Module({

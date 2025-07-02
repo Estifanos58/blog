@@ -42,4 +42,12 @@ export class PostRepositoryImpl implements PostRepository {
       data: { content },
     });
   }
+
+  async deleteById(postId: string, userId: string): Promise<boolean> {
+  const post = await this.prisma.post.findUnique({ where: { id: postId } });
+  if (!post || post.userId !== userId) return false;
+
+  await this.prisma.post.delete({ where: { id: postId } });
+  return true;
+}
 }

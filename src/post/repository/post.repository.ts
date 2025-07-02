@@ -7,4 +7,5 @@ export abstract class PostRepository {
   abstract findById(id: string): Promise<any | null>;
    abstract findAll(): Promise<any[]>;
     abstract updateById(postId: string, userId: string, content: string): Promise<any>;
+    abstract deleteById(postId: string, userId: string): Promise<boolean>;
 }

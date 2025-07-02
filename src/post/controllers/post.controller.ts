@@ -1,4 +1,13 @@
-import { Controller, Post, Body, Req, Get, Param, Put } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Req,
+  Get,
+  Param,
+  Put,
+  Delete,
+} from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { CreatePostDto } from '../dto/create-post.dto';
 import { CreatePostCommand } from '../commands/create-post.command';
@@ -6,6 +15,7 @@ import { Request } from 'express';
 import { GetAllPostsQuery } from '../queries/get-all-posts.query';
 import { UpdatePostDto } from '../dto/update-post.dto';
 import { UpdatePostCommand } from '../commands/update-post.command';
+import { DeletePostCommand } from '../commands/delete-post.command';
 
 @Controller('posts')
 export class PostController {
@@ -31,5 +41,10 @@ export class PostController {
     @Req() req: Request,
   ) {
     return this.commandBus.execute(new UpdatePostCommand(req, id, dto.content));
+  }
+
+  @Delete(':id')
+  async delete(@Param('id') id: string, @Req() req: Request) {
+    return this.commandBus.execute(new DeletePostCommand(req, id));
   }
 }
