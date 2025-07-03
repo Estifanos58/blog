@@ -53,7 +53,7 @@ export const Auth = () => {
     setPending(true);
     try {
       console.log(isLogin ? "Logging in..." : "Signing up...", data);
-      const url = `${import.meta.env.VITE_BACKEND_URL}/auth/${
+      const url = `http://localhost:3000/auth/${
         isLogin ? "signin" : "signup"
       }`;
       const response = await axios.post(url, data, { withCredentials: true });

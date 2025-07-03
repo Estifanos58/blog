@@ -19,7 +19,7 @@ function App() {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL}/auth/me`,
+          `http://localhost:3000/auth/me`,
           { withCredentials: true }
         );
 

@@ -11,7 +11,7 @@ export async function getUserFromRequest(
   if (!token) throw new UnauthorizedException('No auth token found');
 
   try {
-    const payload: any = jwt.verify(token, process.env.JWT_SECRET || 'secret');
+    const payload: any = jwt.verify(token, process.env.JWT_SECRET || 'ThISISJWTSECRETTOKENFORBLOGAPP');
     const user = await userRepo.findById(payload.sub);
     if (!user) throw new UnauthorizedException('User not found');
     return user;

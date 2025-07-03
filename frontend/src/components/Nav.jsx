@@ -25,7 +25,7 @@ const Navbar = () => {
   const { user, setUser } = useStore();
 
   const handleLogOut = async() => {
-    const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/auth/logout`,{withCredentials: true});
+    const response = await axios.get(`http://localhost:3000/auth/logout`,{withCredentials: true});
 
     if(response.status === 200 ){
       setUser(null);

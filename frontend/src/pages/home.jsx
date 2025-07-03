@@ -13,7 +13,7 @@ function Home() {
     const fechData = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_BACKEND_URL}/posts`,
+          `http://localhost:3000/posts`,
           { withCredentials: true }
         );
         // console.log("Response:", response);

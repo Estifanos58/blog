@@ -19,7 +19,7 @@ function Detail() {
     setSubmitting(true);
     try {
         const response = await axios.post(
-          `${import.meta.env.VITE_BACKEND_URL}/posts/${id}/comments`,{content: newComment},{withCredentials:true});
+          `http://localhost:3000/posts/${id}/comments`,{content: newComment},{withCredentials:true});
         if (response.status === 201) {
           addComment(response.data);  
           setNewComment('');

@@ -26,7 +26,7 @@ function PostCard({ item }) {
     console.log('Delete post with id:', item.id);
     setDeleting({ status: true, id: item.id });
     try {
-      const response = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/posts/${item.id}`, {withCredentials: true});
+      const response = await axios.delete(`http://localhost:3000/posts/${item.id}`, {withCredentials: true});
       if (response.status === 200) {
           deletePost(item.id);
           setDeleting({ status: false, id: null });
