@@ -1,3 +1,4 @@
+import { title } from "@uiw/react-md-editor";
 import {
   FaFacebookF,
   FaInstagram,
@@ -5,8 +6,28 @@ import {
   FaPinterest,
 } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
+import { Link, useNavigate } from "react-router-dom";
+
+const NavData = [
+  {
+    id: 1,
+    title: "Home",
+    href: "/"
+  },
+  {
+    id: 2,
+    title: "About",
+    href: "/about"
+  },
+  {
+    id: 3,
+    title: "Contact",
+    href: "/contact"
+  }
+]
 
 const Navbar = () => {
+  const navigate = useNavigate();
   return (
     <div className="w-full flex flex-col gap-5">
       {/* Tagline */}
@@ -20,32 +41,38 @@ const Navbar = () => {
       </h1>
 
       {/* Navigation */}
-        <div className="border-y-2 flex mx-5 justify-center md:gap-6 items-center px-4 md:px-16">
+        <div className="border-y-2 flex md:mx-5 justify-center md:gap-6 items-center px-4 md:px-16">
           {/*  */}
-          <div className="flex px-4 lg:px-7 divide-x divide-black text-sm">
-            {["Home", "About", "My Blog", "Contact"].map((item, idx) => (
+          <div className="flex md:px-4 lg:px-7 divide-x divide-black text-sm">
+            {NavData.map((item, idx) => (
               <div
                 key={idx}
-                className="px-5 lg:px-16 py-4 text-center hover:text-purple-600 transition-colors cursor-pointer"
+                className="px-3 md:px-5 lg:px-16 py-4 text-center hover:text-purple-600 transition-colors cursor-pointer"
               >
-                {item}
+                
+                <a href={item.href}>{item.title}</a>
               </div>
             ))}
           </div>
           {/*  */}
           <div className="flex divide-x divide-black text-sm">
-            {/* Search Icon */}
-            <div className="px-4 flex items-center justify-center cursor-pointer">
-              <FiSearch className="text-lg" />
+            <div>
+              <button className="border-2 px-5 py-2 rounded-3xl hover:border-gray-100 transition" onClick={()=>navigate('/auth')}>
+                SignIn
+              </button>
             </div>
+            {/* Search Icon */}
+            {/* <div className="px-4 flex items-center justify-center cursor-pointer">
+              <FiSearch className="text-lg" />
+            </div> */}
 
             {/* Social Icons */}
-            <div className="flex items-center gap-4 px-6 py-4">
+            {/* <div className="flex items-center gap-4 px-6 py-4">
               <FaFacebookF />
               <FaInstagram />
               <FaTwitter />
               <FaPinterest />
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

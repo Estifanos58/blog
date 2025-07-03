@@ -17,6 +17,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import axios from "axios";
+import useStore from "../store/store";
 
 const postSchema = z.object({
   title: z.string().min(1, "Title is required"),
@@ -26,22 +27,16 @@ const postSchema = z.object({
 });
 
 function CreateOrUpdate() {
-  const [pendign, setPending] = useState(false);
-  // const [content, setContent] = useState("");
-  // const [data, setData] = useState({
-  //   title: "",
-  //   description: "",
-  //   content: "",
-  //   image: ""
-  // })
+  const [pending, setPending] = useState(false);
+  const {updatePost} = useStore();
 
   const form = useForm({
     resolver: zodResolver(postSchema),
     defaultValues: {
-      title: "",
-      description: "",
-      content: "",
-      image: "", // Optional
+      title: updatePost.title || "",
+      description: updatePost.description || "",
+      content: updatePost.content || "",
+      image: updatePost.image || "", // Optional
     },
   });
   const content = form.watch("content");
@@ -57,7 +52,7 @@ function CreateOrUpdate() {
         { withCredentials: true }
       );
       console.log("Response:", response);
-      if (response.ok) {
+      if (response.status === 201) {
         setPending(false);
         console.log("Post created successfully");
         // Optionally, redirect or reset the form
@@ -99,7 +94,7 @@ function CreateOrUpdate() {
   return (
     <div className="mx-5 md:mx-20 lg:mx-40 mt-10 border-2 p-10 md:p-15">
       <div className="flex flex-col ">
-        <h2 className="text-4xl md:text-7xl text-center">Create Your Blog</h2>
+        <h2 className="text-4xl md:text-7xl text-center">{updatePost.title ? "Edit Your Blog" :"Create Your Blog"}</h2>
         <p className="text-xl md:text-2xl text-center">Make a difference</p>
       </div>
       <Form {...form}>
@@ -140,7 +135,7 @@ function CreateOrUpdate() {
               )}
             />
 
-            <FormField
+            {!updatePost.title && <FormField
               control={form.control}
               name="images"
               render={({ field }) => (
@@ -152,7 +147,7 @@ function CreateOrUpdate() {
                   <FormMessage />
                 </FormItem>
               )}
-            />
+            />}
           </div>
 
           <FormField
@@ -187,13 +182,8 @@ function CreateOrUpdate() {
           />
           <div className="mt-5">
             <FancyButton
-              title="Post"
+              title={pending ? "Posting ..." :updatePost.title ? "Edit" : "Post"}
               type="submit"
-              // onClick={() =>
-              //   form.handleSubmit((data) => {
-              //     console.log("✅ Form submitted with data:", data); // THIS is what you want
-              //   })()
-              // }
               noRelod={true}
             />
           </div>

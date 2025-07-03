@@ -4,6 +4,7 @@ import Home from "./pages/home";
 import { Auth } from "./pages/auth";
 import Layout from "./pages/Layout";
 import CreateOrUpdate from "./pages/create";
+import Detail from "./pages/detail";
 function App() {
   return (
     <div>
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="/post" element={<CreateOrUpdate/>}/>
+            <Route path="/post/:id" element={<Detail/>}/>
           </Route>
         </Routes>
       </BrowserRouter>
