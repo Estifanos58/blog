@@ -10,6 +10,7 @@ import useStore from "./store/store";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import { ToastContainer } from "react-toastify";
 import About from "./pages/about";
+import LoadingSpinner from "./components/ComponentLoading";
 
 function App() {
   const [loading, setIsLoading] = useState(true);
@@ -39,7 +40,7 @@ function App() {
   if (loading) {
     return (
       <div className="w-full h-screen flex items-center justify-center">
-        <p className="text-3xl">Loading ...</p>
+        <LoadingSpinner/>
       </div>
     );
   }
@@ -63,9 +64,7 @@ function App() {
             <Route
               path="/post/:id"
               element={
-                <ProtectedRoute>
                   <Detail />
-                </ProtectedRoute>
               }
             />
             <Route path="/about" element={<About />} />

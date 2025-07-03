@@ -1,58 +1,55 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import useStore from '../store/store';
-import { PortableText } from '@portabletext/react';
-import axios from 'axios';
-import { toast } from 'react-toastify';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import useStore from "../store/store";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 function Detail() {
-  const { selectedPost, addComment } = useStore();
+  const { selectedPost, addComment, user } = useStore();
   const { id } = useParams();
 
-  const [comments, setComments] = useState([]);
-  const [newComment, setNewComment] = useState('');
+  const [newComment, setNewComment] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
-
-  const handleSubmitComment = async() => {
+  const handleSubmitComment = async () => {
     if (!newComment.trim()) return;
     setSubmitting(true);
     try {
-        const response = await axios.post(
-          `http://localhost:3000/posts/${id}/comments`,{content: newComment},{withCredentials:true});
-        if (response.status === 201) {
-          addComment(response.data);  
-          setNewComment('');
-          setSubmitting(false);
-          toast.success("Comment added successfully");
-        }else{
-            setSubmitting(false);
-            toast.error("Failed to add comment");
-            // console.log("error happend")
-        }
+      const response = await axios.post(
+        `http://localhost:3000/posts/${id}/comments`,
+        { content: newComment },
+        { withCredentials: true }
+      );
+      if (response.status === 201) {
+        addComment(response.data);
+        setNewComment("");
+        setSubmitting(false);
+        toast.success("Comment added successfully");
+      } else {
+        setSubmitting(false);
+        toast.error("Failed to add comment");
+        // console.log("error happend")
+      }
     } catch (error) {
-        setSubmitting(false)
-        console.log("error:", error)
+      setSubmitting(false);
+      console.log("error:", error);
     }
   };
-
-  if (!selectedPost) {
-    return <p className="text-center mt-10">Loading post...</p>;
-  }
-
   return (
     <div className="px-4 py-10 flex flex-col items-center">
       {/* Main Post Box */}
       <div className="relative w-full max-w-5xl border border-black bg-white">
         {/* Featured Post Ribbon */}
         <div className="absolute -top-5 left-5 bg-white px-5 py-2 border border-black">
-          <h2 className="uppercase tracking-[4px] text-2xl font-semibold">Featured Post</h2>
+          <h2 className="uppercase tracking-[4px] text-2xl font-semibold">
+            Featured Post
+          </h2>
         </div>
 
         {/* Image */}
         <div className="w-full h-[300px] md:h-[400px] bg-gray-200 overflow-hidden">
           <img
-            src={selectedPost.image || '/placeholder.jpg'}
+            src={selectedPost.image || "/placeholder.jpg"}
             alt={selectedPost.title}
             className="w-full h-full object-cover"
           />
@@ -62,17 +59,22 @@ function Detail() {
         <div className="p-6">
           {/* Meta */}
           <p className="text-sm text-gray-600 mb-1">
-            Posted &middot;{' '}
-            {new Date(selectedPost.createdAt || Date.now()).toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'short',
-              day: 'numeric',
-            })}{' '}
+            Posted &middot;{" "}
+            {new Date(selectedPost.createdAt || Date.now()).toLocaleDateString(
+              "en-US",
+              {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+              }
+            )}{" "}
             &middot; 2 min read
           </p>
 
           {/* Title */}
-          <h1 className="text-xl md:text-3xl font-bold mb-2">{selectedPost.title}</h1>
+          <h1 className="text-xl md:text-3xl font-bold mb-2">
+            {selectedPost.title}
+          </h1>
 
           {/* Description */}
           <p className="text-base text-gray-800 leading-relaxed mb-6">
@@ -99,16 +101,19 @@ function Detail() {
             placeholder="Write a comment..."
             className="w-full border border-gray-300 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
           />
-          <button
-            onClick={handleSubmitComment}
-            disabled={submitting}
-            className="self-end bg-black text-white px-4 py-2 rounded hover:bg-gray-800 disabled:opacity-50"
-          >
-            {submitting ? 'Posting...' : 'Post Comment'}
-          </button>
+          {user?.id ? (
+            <button
+              onClick={handleSubmitComment}
+              disabled={submitting}
+              className="self-end bg-black text-white px-4 py-2 rounded hover:bg-gray-800 disabled:opacity-50"
+            >
+              {submitting ? "Posting..." : "Post Comment"}
+            </button>
+          ) : (
+            <p className="text-sm float-right">Create an Account To Comment</p>
+          )}
         </div>
 
-        {/* Loading State */}
         {selectedPost.comments.length === 0 ? (
           <p className="text-gray-700 italic">Be the first to Comment</p>
         ) : (

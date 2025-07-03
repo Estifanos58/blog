@@ -4,6 +4,8 @@ import axios from "axios";
 import useStore from "../store/store";
 import { PostDats } from "../dummydata";
 import PostCard from "../components/PostCard";
+import LoadingSpinner from "../components/ComponentLoading";
+import Loading from "../components/Loading";
 
 function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -50,7 +52,9 @@ function Home() {
               No Data Found Create a Blog
             </div>
           )}
-          {isLoading && <div className="text-center">Loading</div>}
+          {isLoading && <div className="my-10 w-full flex justify-center items-center">
+            <Loading/>
+            </div>}
           <div className="flex gap-5 flex-wrap">
             {posts &&
               posts.map((item) => <PostCard item={item} key={item.id} />)}
