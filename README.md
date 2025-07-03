@@ -25,11 +25,15 @@
 | Create post          | `/create`              | `POST /posts` *(requires auth)* |
 | Comment on a post    | `on Post page`         | `POST /posts/:postId/comments` |
 | Edit/Delete post     | `My Posts` page        | `PUT` / `DELETE /posts/:id`  |
-| Edit/Delete comment  | Inline on Post page    | `PUT` / `DELETE /comments/:id` |
+| Edit/Delete comment  | Not currently added    | `PUT` / `DELETE /comments/:id` |
 
 All authenticated actions use the `auth_token` cookie automatically sent with requests.
 
+
 ---
+
+### For indepth Analysis in Frotend and Backend Code Look at there respective README Files.
+
 
 ## 🛠 Running the App Locally
 
@@ -49,4 +53,5 @@ cp .env.example .env
 npx prisma migrate dev --name init
 npm install
 npm run start:dev
+
 
