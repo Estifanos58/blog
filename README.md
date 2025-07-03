@@ -32,7 +32,11 @@ All authenticated actions use the `auth_token` cookie automatically sent with re
 
 ---
 
-### For indepth Analysis in Frotend and Backend Code Look at there respective README Files.
+---
+
+### For indepth Analysis in Frontend and Backend Code Look at there respective README Files.
+
+---
 
 
 ## 🛠 Running the App Locally
