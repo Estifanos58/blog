@@ -5,6 +5,7 @@ import { EditIcon, Trash2Icon } from 'lucide-react'; // Using consistent icon na
 import axios from 'axios';
 import ComponentLoading from './ComponentLoading';
 import LoadingSpinner from './ComponentLoading';
+import { toast } from 'react-toastify';
 
 function PostCard({ item }) {
   const navigate = useNavigate();
@@ -29,10 +30,12 @@ function PostCard({ item }) {
       if (response.status === 200) {
           deletePost(item.id);
           setDeleting({ status: false, id: null });
-          console.log('Post deleted successfully');
+          toast.success('Post deleted successfully');
+          // console.log('Post deleted successfully');
       }else {
           setDeleting({ status: false, id: null });
-          console.error('Failed to delete post');
+          toast.error('Failed to delete post');
+          // console.error('Failed to delete post');
       }
     } catch (error) {
       setDeleting({ status: false, id: null });

@@ -16,9 +16,9 @@ function Home() {
           `${import.meta.env.VITE_BACKEND_URL}/posts`,
           { withCredentials: true }
         );
-        console.log("Response:", response);
+        // console.log("Response:", response);
         if (response.status === 200) {
-          setPosts(response.data);
+          setPosts(response.data);   
           setIsLoading(false);
         } else {
           setIsLoading(false);

@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import useStore from '../store/store';
 import { PortableText } from '@portabletext/react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 function Detail() {
   const { selectedPost, addComment } = useStore();
@@ -19,14 +20,15 @@ function Detail() {
     try {
         const response = await axios.post(
           `${import.meta.env.VITE_BACKEND_URL}/posts/${id}/comments`,{content: newComment},{withCredentials:true});
-          console.log("Response:", response);
         if (response.status === 201) {
           addComment(response.data);  
           setNewComment('');
           setSubmitting(false);
+          toast.success("Comment added successfully");
         }else{
             setSubmitting(false);
-            console.log("error happend")
+            toast.error("Failed to add comment");
+            // console.log("error happend")
         }
     } catch (error) {
         setSubmitting(false)

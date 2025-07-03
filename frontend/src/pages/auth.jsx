@@ -19,6 +19,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import useStore from "../store/store";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const signUpSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
@@ -59,16 +60,19 @@ export const Auth = () => {
       if(response.status === 200 | 201) {
         console.log("Success:", response.data);
         setUser(response.data.data);
+        toast.success("Wellcome");
         setPending(false);
         navigate("/");
       }
       else{
         setPending(false);
+        toast.error(response.data.message);
         alert(response.data.message);
       }
       console.log("Response: ", response);
     } catch (error) {
       setPending(false);
+      toast.error("An error occurred. Please try again.");
       alert("An error Occurred. Please try again.");
     }
   };

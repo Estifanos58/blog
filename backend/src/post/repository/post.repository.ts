@@ -12,10 +12,9 @@ export abstract class PostRepository {
   abstract updateById(
     postId: string,
     userId: string,
-    content: string,
     title: string,
-    image: string,
     description: string,
+    content: string,
   ): Promise<any>;
   abstract deleteById(postId: string, userId: string): Promise<boolean>;
 }

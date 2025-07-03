@@ -42,7 +42,7 @@ export class PostController {
     @Body() dto: UpdatePostDto,
     @Req() req: Request,
   ) {
-    return this.commandBus.execute(new UpdatePostCommand(req, id , dto.content! , dto.title!, dto.image!, dto.description!));
+    return this.commandBus.execute(new UpdatePostCommand(req, id , dto.title, dto.description, dto.content ));
   }
 
   @Delete(':id')

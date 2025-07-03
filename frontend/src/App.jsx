@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import useStore from "./store/store";
 import ProtectedRoute from "./pages/ProtectedRoute";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const [loading, setIsLoading] = useState(true);
@@ -43,6 +44,8 @@ function App() {
   }
 
   return (
+    <div>
+      <ToastContainer/>
     <BrowserRouter>
       <Routes>
         <Route path="/auth" element={<Auth />} />
@@ -60,6 +63,7 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
+    </div>
   );
 }
 

@@ -28,17 +28,16 @@ export class PostRepositoryImpl implements PostRepository {
   async updateById(
     postId: string,
     userId: string,
-    content: string,
     title: string,
     description: string,
-    image: string
+    content: string,
   ): Promise<any> {
     const post = await this.prisma.post.findUnique({ where: { id: postId } });
     if (!post || post.userId !== userId) return null;
 
     return this.prisma.post.update({
       where: { id: postId },
-      data: { content, title, description, image },
+      data: {  title, description, content },
     });
   }
 
