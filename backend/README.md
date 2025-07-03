@@ -64,7 +64,10 @@ This is the **backend** for the Skylink Blog App built using **NestJS** with **P
 
 ### 1. Install dependencies
 
+After Cloning the Repo
+
 ```bash
+cd backend
 npm install
 
 ### 2. To Run The Backend
