@@ -32,30 +32,16 @@ All authenticated actions use the `auth_token` cookie automatically sent with re
 
 ---
 
----
+### For in-depth analysis of the Frontend and Backend code, look at their respective README files.
 
-### For indepth Analysis in Frontend and Backend Code Look at there respective README Files.
+For testing purposes, I have added all `.env` variables to their respective places.
 
----
-
-
-## 🛠 Running the App Locally
-
-### 🧱 Requirements
-
-- Node.js (v18+ recommended)
-- PostgreSQL installed locally or cloud-hosted
-- `pnpm`, `npm`, or `yarn` (any package manager works)
+- 🧠 To run the **backend** and understand the endpoints, see [backend/README.md](./backend/README.md)
+- 💻 To run the **frontend**, see [frontend/README.md](./frontend/README.md)
 
 ---
 
-### ▶️ Backend
 
-```bash
-cd backend
-cp .env.example .env
-npx prisma migrate dev --name init
-npm install
-npm run start:dev
+
 
 
