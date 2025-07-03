@@ -8,6 +8,10 @@ const useStore = create((set) => ({
   // All Posts
   posts: [],
   setPosts: (posts) => set({ posts }),
+  deletePost: (postId) =>
+    set((state) => ({
+      posts: state.posts.filter((post) => post.id !== postId),
+    })),
 
   // Selected Post
   selectedPost: null,
