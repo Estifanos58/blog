@@ -1,4 +1,3 @@
-// app/comment/controllers/comment.controller.ts
 import {
   Controller,
   Post,
@@ -20,6 +19,11 @@ import { DeleteCommentCommand } from '../commands/delete-comment.command';
 export class CommentController {
   constructor(private readonly commandBus: CommandBus) {}
 
+  /**
+   * 
+   * Endpoint to create a comment on a post.
+   * By using the PostId from the param and the userId from the cookie.
+   */
   @Post()
   async create(
     @Param('postId') postId: string,
@@ -30,6 +34,13 @@ export class CommentController {
       new CreateCommentCommand(req, postId, dto.content),
     );
   }
+
+  /**
+   * Endpoint to update a comment by its ID.
+   * It uses the UpdateCommentCommand to update the comment content.
+   * It First validate if the current user is the one who created the comment
+   * CURRENTLY NOT IMPLEMENTED IN FRONTEND
+   */
 
   @Put('/:id')
   async update(
@@ -42,6 +53,13 @@ export class CommentController {
     );
   }
 
+  /**
+   * 
+   *Endpoint to delete a comment by its ID.
+   *By validating if the current user is the one who created the comment.
+   *CURRENTLY NOT IMPLEMENTED IN FRONTEND
+   * It uses the DeleteCommentCommand to delete the comment.
+   */
   @Delete('/:id')
   async delete(@Param('id') id: string, @Req() req: Request) {
     return this.commandBus.execute(new DeleteCommentCommand(req, id));

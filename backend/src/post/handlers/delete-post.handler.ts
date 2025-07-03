@@ -1,4 +1,4 @@
-// app/handlers/delete-post.handler.ts
+
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { DeletePostCommand } from '../commands/delete-post.command';
 import { PostRepository } from '../repository/post.repository';

@@ -1,4 +1,3 @@
-// app/controllers/auth.controller.ts
 import {
   Body,
   Controller,
@@ -26,6 +25,13 @@ export class AuthController {
     private readonly queryBus: QueryBus,
   ) {}
 
+  /*  Here I have created a endpoint for user registration at(POST /auth/signup) 
+      which accepts user details like firstName, lastName, email, and password.
+      It uses the CreateUserCommand to create a new user and then generates a JWT token
+      for the user. The token is sent back in a cookie named 'auth_token'.
+      
+  */
+  
   @Post('signup')
   @HttpCode(201)
   async register(
@@ -56,6 +62,12 @@ export class AuthController {
     return { message: 'User created successfully', data: user };
   }
 
+  /*
+     The login endpoint (POST /auth/signin) works similarly, accepting email and password,
+      validating the user, and returning a JWT token in a cookie.
+    
+  */
+
   @Post('signin')
   @HttpCode(200)
   async login(
@@ -81,11 +93,20 @@ export class AuthController {
     return { message: 'Login successful', data: user };
   }
 
+  /*
+      The getProfile endpoint (GET /auth/me) retrieves the user's profile based on the request cookie.
+      used to fetch the user profile of the currently authenticated user.
+      It uses the GetUserByIdQuery to get the user details from the database.
+  */
+
   @Get('/me')
   getProfile(@Req() req: Request) {
     return this.queryBus.execute(new GetUserByIdQuery(req));
   }
-
+/**
+ * The logOut endpoint (GET /auth/logout) clears the authentication cookie from the user cookie
+ * 
+ */
   @Get('/logout')
   @HttpCode(200)
   logOut(@Res({ passthrough: true }) res: Response) {

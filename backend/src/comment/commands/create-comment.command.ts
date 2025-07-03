@@ -1,4 +1,4 @@
-// app/commands/create-comment.command.ts
+
 import { Request } from 'express';
 
 export class CreateCommentCommand {

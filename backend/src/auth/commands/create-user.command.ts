@@ -1,4 +1,3 @@
-// app/commands/create-user.command.ts
 export class CreateUserCommand {
   constructor(
     public readonly firstName: string,

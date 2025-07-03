@@ -1,5 +1,4 @@
 export abstract class PostRepository {
-  //   abstract findByEmail(email: string): Promise<any | null>;
   abstract create(user: {
     content: string;
     title: string;

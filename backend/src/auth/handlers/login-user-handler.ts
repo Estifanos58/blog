@@ -1,4 +1,4 @@
-// app/handlers/login-user.handler.ts
+
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { LoginUserCommand } from '../commands/login-user.command';
 import { UserRepository } from '../repository/user.repository';
@@ -13,6 +13,7 @@ export class LoginUserHandler implements ICommandHandler<LoginUserCommand> {
   async execute(command: LoginUserCommand): Promise<any> {
     const { email, password } = command;
 
+    // Validate email and password and Loging User 
     const user = await this.userRepo.findByEmail(email);
     if (!user) throw new UnauthorizedException('Invalid credentials');
 

@@ -3,6 +3,10 @@ import { UserRepository } from '..//auth/repository/user.repository';
 import { UnauthorizedException } from '@nestjs/common';
 import * as jwt from 'jsonwebtoken';
 
+/**
+ *  A reusable function to get the user token from cookie and validate if the users token are real
+ * Many controllers uses this function to authenticate the user who sends a request serving like a Middleware
+ * */
 export async function getUserFromRequest(
   req: Request,
   userRepo: UserRepository

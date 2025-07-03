@@ -1,4 +1,3 @@
-// comment/handlers/update-comment.handler.ts
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { UpdateCommentCommand } from '../commands/update-comment.command';
 import { CommentRepository } from '../repository/comment.repository';

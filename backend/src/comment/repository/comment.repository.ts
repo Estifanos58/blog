@@ -1,4 +1,3 @@
-// app/repository/comment.repository.ts
 export abstract class CommentRepository {
   abstract create(data: {
     userId: string;

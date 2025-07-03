@@ -1,4 +1,3 @@
-// comment/handlers/delete-comment.handler.ts
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { DeleteCommentCommand } from '../commands/delete-comment.command';
 import { CommentRepository } from '../repository/comment.repository';

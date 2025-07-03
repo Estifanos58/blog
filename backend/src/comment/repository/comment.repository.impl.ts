@@ -1,4 +1,3 @@
-// app/repository/comment.repository.impl.ts
 import { Injectable } from '@nestjs/common';
 import { DatabaseService } from 'src/database/database.service';
 import { CommentRepository } from './comment.repository';

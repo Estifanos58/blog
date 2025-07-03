@@ -1,4 +1,3 @@
-// app/handlers/create-comment.handler.ts
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { CreateCommentCommand } from '../commands/create-comment.command';
 import { CommentRepository } from '../repository/comment.repository';
