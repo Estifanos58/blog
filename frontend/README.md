@@ -42,7 +42,10 @@ This is the **frontend** for the Skylink Blog App — a clean, modern blogging p
 
 ### 1. Install dependencies
 
+After Cloning the Repo
+
 ```bash
+cd frontend
 npm install
 
 npm run dev
