@@ -58,7 +58,7 @@ export const Auth = () => {
       const response = await axios.post(url, data, { withCredentials: true });
       if(response.status === 200 | 201) {
         console.log("Success:", response.data);
-        setUser(response.data.user);
+        setUser(response.data.data);
         setPending(false);
         navigate("/");
       }

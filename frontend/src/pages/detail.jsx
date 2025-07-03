@@ -1,24 +1,47 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import useStore from '../store/store';
 import { PortableText } from '@portabletext/react';
+import axios from 'axios';
 
 function Detail() {
-  const { selectedPost } = useStore();
+  const { selectedPost, addComment } = useStore();
   const { id } = useParams();
+
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+
+
+  const handleSubmitComment = async() => {
+    if (!newComment.trim()) return;
+    setSubmitting(true);
+    try {
+        const response = await axios.post(
+          `${import.meta.env.VITE_BACKEND_URL}/posts/${id}/comments`,{content: newComment},{withCredentials:true});
+          console.log("Response:", response);
+        if (response.status === 201) {
+          addComment(response.data);  
+          setNewComment('');
+          setSubmitting(false);
+        }else{
+            setSubmitting(false);
+            console.log("error happend")
+        }
+    } catch (error) {
+        setSubmitting(false)
+        console.log("error:", error)
+    }
+  };
 
   if (!selectedPost) {
     return <p className="text-center mt-10">Loading post...</p>;
   }
 
-  const getParsedText = (content) => {
-    if (!content) return [];
-    return JSON.parse(selectedPost.content)
-  }
-
   return (
-    <div className="flex justify-center px-4 py-10">
-      <div className="relative w-full max-w-5xl border border-black">
+    <div className="px-4 py-10 flex flex-col items-center">
+      {/* Main Post Box */}
+      <div className="relative w-full max-w-5xl border border-black bg-white">
         {/* Featured Post Ribbon */}
         <div className="absolute -top-5 left-5 bg-white px-5 py-2 border border-black">
           <h2 className="uppercase tracking-[4px] text-2xl font-semibold">Featured Post</h2>
@@ -34,7 +57,7 @@ function Detail() {
         </div>
 
         {/* Content */}
-        <div className="p-6 bg-white">
+        <div className="p-6">
           {/* Meta */}
           <p className="text-sm text-gray-600 mb-1">
             Posted &middot;{' '}
@@ -50,14 +73,51 @@ function Detail() {
           <h1 className="text-xl md:text-3xl font-bold mb-2">{selectedPost.title}</h1>
 
           {/* Description */}
-          <p className="text-base text-gray-800 leading-relaxed">
-            {selectedPost.description ||
-              'Create a blog post subtitle that summarizes your post in a few short, punchy sentences and entices your audience to continue reading....'}
+          <p className="text-base text-gray-800 leading-relaxed mb-6">
+            {selectedPost.description}
           </p>
 
-          {/* PortableText */}
-          <p className='text-sm text-gray-950'>{selectedPost.content}</p>
+          {/* PortableText (currently fallback as plain text) */}
+          <p className="text-sm text-gray-950 whitespace-pre-line">
+            {selectedPost.content}
+          </p>
         </div>
+      </div>
+
+      {/* Comments Section */}
+      <div className="w-full max-w-5xl mt-12 p-6 bg-white border border-black rounded-md">
+        <h2 className="text-2xl font-semibold mb-4">Comments</h2>
+
+        {/* New Comment Input */}
+        <div className="flex flex-col gap-3 mb-6">
+          <textarea
+            rows="3"
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+            placeholder="Write a comment..."
+            className="w-full border border-gray-300 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
+          />
+          <button
+            onClick={handleSubmitComment}
+            disabled={submitting}
+            className="self-end bg-black text-white px-4 py-2 rounded hover:bg-gray-800 disabled:opacity-50"
+          >
+            {submitting ? 'Posting...' : 'Post Comment'}
+          </button>
+        </div>
+
+        {/* Loading State */}
+        {selectedPost.comments.length === 0 ? (
+          <p className="text-gray-700 italic">Be the first to Comment</p>
+        ) : (
+          <div className="space-y-4 max-h-[300px] overflow-y-scroll">
+            {selectedPost.comments.map((comment, index) => (
+              <div key={index} className="border-b border-gray-200 pb-2">
+                <p className="text-sm text-gray-800">{comment.content}</p>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

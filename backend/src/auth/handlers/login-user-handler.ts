@@ -4,6 +4,7 @@ import { LoginUserCommand } from '../commands/login-user.command';
 import { UserRepository } from '../repository/user.repository';
 import { UnauthorizedException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
+import { first } from 'rxjs';
 
 @CommandHandler(LoginUserCommand)
 export class LoginUserHandler implements ICommandHandler<LoginUserCommand> {
@@ -18,6 +19,6 @@ export class LoginUserHandler implements ICommandHandler<LoginUserCommand> {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) throw new UnauthorizedException('Invalid credentials');
 
-    return { id: user.id, email: user.email };
+    return { id: user.id, email: user.email ,firstName: user.firstName, lastName: user.lastName };
   }
 }

@@ -1,25 +1,36 @@
 import { create } from "zustand";
 
-const useStore = create((set) => {
-    return {
+const useStore = create((set) => ({
+  // User Data
+  user: {},
+  setUser: (user) => set({ user }),
 
-        //User Data
-        user: null,
-        setUser: (user) => set({ user }),
+  // All Posts
+  posts: [],
+  setPosts: (posts) => set({ posts }),
 
-        // Post Data
-        posts: [],
-        setPosts: (post) => set({ posts: post }),
+  // Selected Post
+  selectedPost: null,
+  setSelectedPost: (post) =>
+    set({
+      selectedPost: {
+        ...post,
+        comments: post.comments || [], // ensure comments exists
+      },
+    }),
 
-        // Selected Post
-        selectedPost: {},
-        setSelectedPost: (post) => set({selectedPost: post}),
+  // Add a comment only to selected post
+  addComment: (comment) =>
+    set((state) => ({
+      selectedPost: {
+        ...state.selectedPost,
+        comments: [...(state.selectedPost?.comments || []), comment],
+      },
+    })),
 
-        // Seleced Post For Update
-        updatePost: {},
-        setUpdatePost: (post) => set({updatePost: post})
+  // Selected Post for Update
+  updatePost: null,
+  setUpdatePost: (post) => set({ updatePost: post }),
+}));
 
-
-    }});
-
-    export default useStore;
+export default useStore;

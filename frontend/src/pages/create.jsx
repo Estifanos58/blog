@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import MDEditor, { title } from "@uiw/react-md-editor";
+import MDEditor from "@uiw/react-md-editor";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -33,10 +33,10 @@ function CreateOrUpdate() {
   const form = useForm({
     resolver: zodResolver(postSchema),
     defaultValues: {
-      title: updatePost.title || "",
-      description: updatePost.description || "",
-      content: updatePost.content || "",
-      image: updatePost.image || "", // Optional
+      title: updatePost?.title || "",
+      description: updatePost?.description || "",
+      content: updatePost?.content || "",
+      image: updatePost?.image || "", // Optional
     },
   });
   const content = form.watch("content");
@@ -94,7 +94,7 @@ function CreateOrUpdate() {
   return (
     <div className="mx-5 md:mx-20 lg:mx-40 mt-10 border-2 p-10 md:p-15">
       <div className="flex flex-col ">
-        <h2 className="text-4xl md:text-7xl text-center">{updatePost.title ? "Edit Your Blog" :"Create Your Blog"}</h2>
+        <h2 className="text-4xl md:text-7xl text-center">{updatePost?.title ? "Edit Your Blog" :"Create Your Blog"}</h2>
         <p className="text-xl md:text-2xl text-center">Make a difference</p>
       </div>
       <Form {...form}>
@@ -135,7 +135,7 @@ function CreateOrUpdate() {
               )}
             />
 
-            {!updatePost.title && <FormField
+            {!updatePost?.title && <FormField
               control={form.control}
               name="images"
               render={({ field }) => (
@@ -182,7 +182,7 @@ function CreateOrUpdate() {
           />
           <div className="mt-5">
             <FancyButton
-              title={pending ? "Posting ..." :updatePost.title ? "Edit" : "Post"}
+              title={pending ? "Posting ..." :updatePost?.title ? "Edit" : "Post"}
               type="submit"
               noRelod={true}
             />

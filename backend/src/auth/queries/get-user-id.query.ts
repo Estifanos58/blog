@@ -1,3 +1,5 @@
+import { Request } from 'express';
+
 export class GetUserByIdQuery {
-  constructor(public readonly id: string) {}
+  constructor( public readonly req: Request) {}
 }

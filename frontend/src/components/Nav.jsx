@@ -1,12 +1,6 @@
-import { title } from "@uiw/react-md-editor";
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaTwitter,
-  FaPinterest,
-} from "react-icons/fa";
-import { FiSearch } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
+import useStore from "../store/store";
+import axios from "axios";
 
 const NavData = [
   {
@@ -28,6 +22,16 @@ const NavData = [
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const { user, setUser } = useStore();
+
+  const handleLogOut = async() => {
+    const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/auth/logout`,{withCredentials: true});
+
+    if(response.status === 200 ){
+      setUser(null);
+    }
+  }
+
   return (
     <div className="w-full flex flex-col gap-5">
       {/* Tagline */}
@@ -57,22 +61,19 @@ const Navbar = () => {
           {/*  */}
           <div className="flex divide-x divide-black text-sm">
             <div>
+              {user?.firstName ? 
+                <div className="flex gap-2 items-center">
+                  <h1>Welcome {user.firstName}</h1>
+                  <button className="border-2 px-5 py-2 rounded-3xl hover:border-gray-100 transition" onClick={handleLogOut}>
+                SignOut
+              </button>
+                </div>  
+               :
               <button className="border-2 px-5 py-2 rounded-3xl hover:border-gray-100 transition" onClick={()=>navigate('/auth')}>
                 SignIn
               </button>
+              }
             </div>
-            {/* Search Icon */}
-            {/* <div className="px-4 flex items-center justify-center cursor-pointer">
-              <FiSearch className="text-lg" />
-            </div> */}
-
-            {/* Social Icons */}
-            {/* <div className="flex items-center gap-4 px-6 py-4">
-              <FaFacebookF />
-              <FaInstagram />
-              <FaTwitter />
-              <FaPinterest />
-            </div> */}
           </div>
         </div>
       </div>

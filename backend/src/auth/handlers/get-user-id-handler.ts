@@ -3,17 +3,18 @@ import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { GetUserByIdQuery } from '../queries/get-user-id.query';
 import { UserRepository } from '../repository/user.repository';
 import { NotFoundException } from '@nestjs/common';
+import { getUserFromRequest } from 'src/utils/get-user-from-request';
 
 @QueryHandler(GetUserByIdQuery)
 export class GetUserByIdHandler implements IQueryHandler<GetUserByIdQuery> {
   constructor(private readonly userRepo: UserRepository) {}
 
-  async execute(query: GetUserByIdQuery) {
-    const user = await this.userRepo.findById(query.id);
-    if (!user) throw new NotFoundException('User not found');
+  async execute(query: GetUserByIdQuery): Promise<any> {
+    const { req } = query;
+    const currentUser = await getUserFromRequest(req , this.userRepo);
 
-    // remove password from response
-    const { password, ...rest } = user;
+    const { password, ...rest } = currentUser;
     return rest;
   }
+
 }
