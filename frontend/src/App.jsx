@@ -9,6 +9,7 @@ import axios from "axios";
 import useStore from "./store/store";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import { ToastContainer } from "react-toastify";
+import About from "./pages/about";
 
 function App() {
   const [loading, setIsLoading] = useState(true);
@@ -45,24 +46,32 @@ function App() {
 
   return (
     <div>
-      <ToastContainer/>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/auth" element={<Auth />} />
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <Layout />
-            </ProtectedRoute>
-          }
-        >
-          <Route index element={<Home />} />
-          <Route path="/post" element={<CreateOrUpdate />} />
-          <Route path="/post/:id" element={<Detail />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+      <ToastContainer />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route
+              path="/post"
+              element={
+                <ProtectedRoute>
+                  <CreateOrUpdate />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/post/:id"
+              element={
+                <ProtectedRoute>
+                  <Detail />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/about" element={<About />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

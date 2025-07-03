@@ -16,7 +16,7 @@ const NavData = [
   {
     id: 3,
     title: "Contact",
-    href: "/contact"
+    href: "https://www.estifanos.tech/"
   }
 ]
 

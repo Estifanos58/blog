@@ -62,7 +62,7 @@ function PostCard({ item }) {
           alt={item.title}
           className="object-contain h-full"
         />
-        { user.id === item.userId &&
+        { user?.id === item.userId &&
         <div className="absolute top-2 right-2 flex gap-2">
           <EditIcon onClick={handleUpdate} className="w-5 h-5 cursor-pointer text-black hover:text-blue-600" />
           <Trash2Icon onClick={handleDelete} className="w-5 h-5 cursor-pointer text-black hover:text-red-600" />
