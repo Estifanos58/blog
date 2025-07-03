@@ -72,3 +72,7 @@ npm install
 
 ### 2. To Run The Backend
 npm run start:dev
+
+If You Encounter a Problem with database use this commands to Generate prisma
+npx prisma generate
+npx prisma migrate dev
