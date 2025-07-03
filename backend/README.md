@@ -18,33 +18,6 @@ This is the **backend** for the Skylink Blog App built using **NestJS** with **P
 
 ---
 
-## 📂 Folder Structure
-
-src/
-├── app/
-│ ├── auth/
-│ │ ├── controllers/
-│ │ ├── commands/handlers/queries/
-│ │ ├── dto/
-│ │ └── repository/
-│ ├── post/
-│ │ ├── controllers/
-│ │ ├── commands/handlers/queries/
-│ │ ├── dto/
-│ │ └── repository/
-│ ├── comment/
-│ │ ├── controllers/
-│ │ ├── commands/handlers/
-│ │ ├── dto/
-│ │ └── repository/
-│ ├── utils/
-│ │ └── get-user-from-request.ts
-│ └── services/
-│ └── prisma.service.ts
-
-
----
-
 ## 🔐 Authentication
 
 - Signup: `POST /auth/signup`
@@ -59,7 +32,8 @@ src/
 ### ✅ User
 - Register (`/auth/signup`)
 - Login (`/auth/signin`)
-- Get user by ID (`/auth/:id`)
+- Get user Data (`/auth/me`)
+- LogOut (`/auth/logout/`)
 
 ### ✅ Posts
 - Create post (`POST /posts`)
